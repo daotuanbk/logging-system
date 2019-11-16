@@ -12,10 +12,11 @@ const schema = new Schema({
   processingTime: { type: Number },
   query: {type: Object},
   timestamps: {type: Date},
+  response: {type: Object}
 }, {
   timestamps: true
 });
 
 schema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('Request', schema);
+module.exports = mongoose.model('Response', schema);
