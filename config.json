@@ -1,4 +1,4 @@
 ﻿{
-    "connectionString": "mongodb://localhost/logging-system",
+    "connectionString": "mongodb://localhost:27017/logging-system",
     "secret": "secret"
 }

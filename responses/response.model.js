@@ -1,20 +1,25 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoosastic = require('mongoosastic');
 
 const schema = new Schema({
-  rawHeaders: { type: Array },
-  httpVersion: { type: Object },
-  method: { type: Object },
-  remoteAddress: { type: Object },
-  remoteFamily: { type: Object },
-  remoteAddress: { type: Object },
-  url: { type: String },
-  processingTime: { type: Number },
-  query: {type: Object},
-  timestamps: {type: Date},
-  response: {type: Object}
+  rawHeaders: [{ type: String, es_type: "text" }],
+  httpVersion: { type: String, es_type: "text" },
+  method: { type: String, es_type: "text" },
+  remoteAddress: { type: String, es_type: "text" },
+  remoteFamily: { type: String, es_type: "text" },
+  url: { type: String, es_type: "text" },
+  processingTime: { type: Number, es_type: "integer" },
+  query: {type: Object, es_type: "nested"},
+  createdAt: {type: Date, es_type: "date"},
+  updatedAt: {type: Date, es_type: "date"},
+  response: {type: Object, es_type: "nested"}
 }, {
   timestamps: true
+});
+
+schema.plugin(mongoosastic, {
+  "hosts": ["localhost:9200"],
 });
 
 schema.set('toJSON', { virtuals: true });

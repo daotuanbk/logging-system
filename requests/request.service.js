@@ -10,6 +10,29 @@ module.exports = {
   search
 };
 
+Request.createMapping((err, mapping) => {
+  if (err) {
+    console.log('error created mapping', err)
+  } else {
+    console.log('mapping created', mapping);
+  }
+});
+
+var stream = Request.synchronize();
+var count = 0;
+
+stream.on('data', () => {
+  count++;
+})
+
+stream.on('close', () => {
+  console.log('Indexed ' + count + ' documents')
+})
+
+stream.on('error', (err) => {
+  console.log('error', err);
+})
+
 async function getById(id) {
   return await Request.findById(id);
 }
@@ -41,15 +64,18 @@ async function create(body) {
   const request = new Request(body);
 
   await request.save();
+  request.on('es-indexed', (err, result) => {
+    console.log('request indexed to elastic search');
+  });
 }
 
 async function update(id, body) {
   const request = await Request.findById(id);
   Object.assign(request, body)
-  
+
   return await Request
-  .findOneAndUpdate({ _id: id }, { $set: request }, { new: true })
-  .exec();
+    .findOneAndUpdate({ _id: id }, { $set: request }, { new: true })
+    .exec();
 }
 
 async function _delete(id) {

@@ -10,6 +10,29 @@ module.exports = {
   search
 };
 
+Response.createMapping((err, mapping) => {
+  if (err) {
+    console.log('error created mapping', err)
+  } else {
+    console.log('mapping created', mapping);
+  }
+});
+
+var stream = Response.synchronize();
+var count = 0;
+
+stream.on('data', () => {
+  count++;
+})
+
+stream.on('close', () => {
+  console.log('Indexed ' + count + ' documents')
+})
+
+stream.on('error', (err) => {
+  console.log('error', err);
+})
+
 async function getById(id) {
   return await Response.findById(id);
 }
@@ -41,6 +64,9 @@ async function create(body) {
   const response = new Response(body);
 
   await response.save();
+  response.on('es-indexed', (err, result) => {
+    console.log('response indexed to elastic search');
+});
 }
 
 async function update(id, body) {
