@@ -12,19 +12,20 @@ homebrew
 ## Getting Started
 
 1. Install Elasticsearch
-brew tap elastic/tap
-brew install elastic/tap/elasticsearch-full
+`brew tap elastic/tap`
+`brew install elastic/tap/elasticsearch-full`
 
 2. Install kibana
-brew tap elastic/tap
-brew install elastic/tap/kibana-full
+`brew tap elastic/tap`
+`brew install elastic/tap/kibana-full`
 
 3. Run MongoDB
 
 4. Run Elasticsearch:
-elasticsearch
+`elasticsearch`
 
 5. Run Kibana
-kibana
+`kibana`
 
-3. Start project: npm run start
+3. Start project: 
+`npm run start`
