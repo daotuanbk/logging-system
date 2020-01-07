@@ -11,6 +11,7 @@ const schema = new Schema({
   url: { type: String, es_type: "text" },
   processingTime: { type: Number, es_type: "integer" },
   query: {type: Object, es_type: "nested"},
+  body: {type: Object, es_type: "nested"},
   createdAt: {type: Date, es_type: "date"},
   updatedAt: {type: Date, es_type: "date"},
   response: {type: Object, es_type: "nested"}
